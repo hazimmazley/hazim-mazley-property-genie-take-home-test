@@ -1,7 +1,6 @@
 import {
   Card,
   CardContent,
-  CardMedia,
   Typography,
   Box,
   Chip,
@@ -12,51 +11,7 @@ import BedIcon from '@mui/icons-material/Bed';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import SquareFootIcon from '@mui/icons-material/SquareFoot';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import styled from 'styled-components';
 import { formatPrice, formatSize, formatPropertyType } from '@/utils/formatters';
-
-const StyledCard = styled(Card)`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-
-  &:hover {
-    transform: translateY(-4px);
-  }
-`;
-
-const PropertyImage = styled(CardMedia)`
-  height: 200px;
-  width: 100%;
-  object-fit: cover;
-  display: block;
-`;
-
-const PriceTag = styled(Box)`
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  background: rgba(25, 118, 210, 0.95);
-  color: white;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-weight: 600;
-  font-size: 1.1rem;
-`;
-
-const CategoryChip = styled(Chip)`
-  position: absolute;
-  top: 12px;
-  left: 12px;
-`;
-
-const FeatureItem = styled(Box)`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color: ${(props) => props.theme.palette.text.secondary};
-`;
 
 const PropertyCard = ({ property }) => {
   const {
@@ -80,22 +35,65 @@ const PropertyCard = ({ property }) => {
   const categoryLabel = category === 'sale' ? 'For Sale' : 'For Rent';
 
   return (
-    <StyledCard>
-      <Box sx={{ position: 'relative', height: 200, overflow: 'hidden' }}>
-        <PropertyImage
+    <Card
+      sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+        '&:hover': {
+          transform: 'translateY(-4px)',
+        },
+      }}
+    >
+      <Box
+        sx={{
+          position: 'relative',
+          width: '100%',
+          height: 180,
+          flexShrink: 0,
+        }}
+      >
+        <Box
           component="img"
-          image={image || '/placeholder-property.jpg'}
+          src={image || '/placeholder-property.jpg'}
           alt={name}
           onError={(e) => {
             e.target.src = 'https://via.placeholder.com/400x200?text=No+Image';
           }}
+          sx={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            display: 'block',
+          }}
         />
-        <CategoryChip
+        <Chip
           label={categoryLabel}
           color={categoryColor}
           size="small"
+          sx={{
+            position: 'absolute',
+            top: 12,
+            left: 12,
+          }}
         />
-        <PriceTag>{formatPrice(price)}</PriceTag>
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: 12,
+            left: 12,
+            bgcolor: 'rgba(25, 118, 210, 0.95)',
+            color: 'white',
+            px: 1.5,
+            py: 0.75,
+            borderRadius: 1,
+            fontWeight: 600,
+            fontSize: '1.1rem',
+          }}
+        >
+          {formatPrice(price)}
+        </Box>
       </Box>
 
       <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
@@ -145,39 +143,40 @@ const PropertyCard = ({ property }) => {
             gap: 2,
             mb: 1.5,
             flexWrap: 'wrap',
+            minHeight: 24,
           }}
         >
           {bedRooms !== null && (
-            <FeatureItem>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'text.secondary' }}>
               <BedIcon sx={{ fontSize: 18 }} />
               <Typography variant="body2">{bedRooms} Beds</Typography>
-            </FeatureItem>
+            </Box>
           )}
           {bathRooms !== null && (
-            <FeatureItem>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'text.secondary' }}>
               <BathtubIcon sx={{ fontSize: 18 }} />
               <Typography variant="body2">{bathRooms} Baths</Typography>
-            </FeatureItem>
+            </Box>
           )}
           {floorSize && (
-            <FeatureItem>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'text.secondary' }}>
               <SquareFootIcon sx={{ fontSize: 18 }} />
               <Typography variant="body2">{formatSize(floorSize)}</Typography>
-            </FeatureItem>
+            </Box>
           )}
         </Box>
 
-        {furnishings && (
-          <Chip
-            label={furnishings}
-            size="small"
-            sx={{
-              alignSelf: 'flex-start',
-              mb: 1.5,
-              backgroundColor: 'grey.100',
-            }}
-          />
-        )}
+        <Box sx={{ minHeight: 32, mb: 1.5 }}>
+          {furnishings && (
+            <Chip
+              label={furnishings}
+              size="small"
+              sx={{
+                backgroundColor: 'grey.100',
+              }}
+            />
+          )}
+        </Box>
 
         <Box sx={{ flexGrow: 1 }} />
 
@@ -207,7 +206,7 @@ const PropertyCard = ({ property }) => {
           </Typography>
         </Box>
       </CardContent>
-    </StyledCard>
+    </Card>
   );
 };
 

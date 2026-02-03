@@ -4,7 +4,6 @@ import Head from 'next/head';
 import {
   Box,
   Container,
-  Grid,
   Typography,
   Alert,
   Drawer,
@@ -290,19 +289,30 @@ export default function Home() {
               )}
 
               {/* Property Grid */}
-              <Grid container spacing={3}>
+              <Box
+                sx={{
+                  display: 'grid',
+                  gridTemplateColumns: {
+                    xs: '1fr',
+                    sm: 'repeat(2, 1fr)',
+                    md: 'repeat(3, 1fr)',
+                    xl: 'repeat(4, 1fr)',
+                  },
+                  gap: 3,
+                }}
+              >
                 {isLoading || isFiltering
                   ? Array.from({ length: ITEMS_PER_PAGE }).map((_, index) => (
-                      <Grid item xs={12} sm={6} md={4} xl={3} key={index}>
+                      <Box key={index} sx={{ height: '100%' }}>
                         <PropertyCardSkeleton />
-                      </Grid>
+                      </Box>
                     ))
                   : paginatedData.items.map((property) => (
-                      <Grid item xs={12} sm={6} md={4} xl={3} key={property.id}>
+                      <Box key={property.id} sx={{ height: '100%' }}>
                         <PropertyCard property={property} />
-                      </Grid>
+                      </Box>
                     ))}
-              </Grid>
+              </Box>
 
               {/* No Results */}
               {!isLoading && !isFiltering && filteredProperties.length === 0 && (
