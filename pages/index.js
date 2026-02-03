@@ -211,13 +211,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+      <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', overflow: 'visible' }}>
         <Header
           showMenuButton={true}
           onMenuClick={() => setDrawerOpen(true)}
         />
 
-        <Container maxWidth="xl" sx={{ py: 3 }}>
+        <Container maxWidth="xl" sx={{ py: 3, overflow: 'visible' }}>
           {/* Page Header */}
           <Box sx={{ mb: 3 }}>
             <Typography variant="h4" component="h1" fontWeight={700} gutterBottom>
@@ -247,9 +247,19 @@ export default function Home() {
                 display: { xs: 'none', md: 'block' },
                 width: 280,
                 flexShrink: 0,
+                alignSelf: 'stretch',
               }}
             >
-              {filterSidebarContent}
+              <Box
+                sx={{
+                  position: 'sticky',
+                  top: 80,
+                  maxHeight: 'calc(100vh - 100px)',
+                  overflowY: 'auto',
+                }}
+              >
+                {filterSidebarContent}
+              </Box>
             </Box>
 
             {/* Main Content */}
