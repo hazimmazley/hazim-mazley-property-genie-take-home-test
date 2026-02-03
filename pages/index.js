@@ -254,8 +254,6 @@ export default function Home() {
                 sx={{
                   position: 'sticky',
                   top: 80,
-                  maxHeight: 'calc(100vh - 100px)',
-                  overflowY: 'auto',
                 }}
               >
                 {filterSidebarContent}
