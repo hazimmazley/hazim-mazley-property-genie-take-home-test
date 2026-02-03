@@ -2,8 +2,8 @@ import { Card, CardContent, Box, Skeleton } from '@mui/material';
 
 const PropertyCardSkeleton = () => {
   return (
-    <Card sx={{ height: '100%' }}>
-      <Skeleton variant="rectangular" height={200} />
+    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Skeleton variant="rectangular" height={180} sx={{ flexShrink: 0 }} />
 
       <CardContent>
         <Skeleton variant="text" sx={{ fontSize: '1.25rem', mb: 1 }} />
