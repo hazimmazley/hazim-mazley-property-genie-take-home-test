@@ -252,7 +252,8 @@ export default function Home() {
               <Box
                 sx={{
                   position: 'sticky',
-                  top: 80,
+                  top: 100,
+                  zIndex: 10,
                 }}
               >
                 {filterSidebarContent}
