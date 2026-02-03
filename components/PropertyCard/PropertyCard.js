@@ -28,7 +28,9 @@ const StyledCard = styled(Card)`
 
 const PropertyImage = styled(CardMedia)`
   height: 200px;
+  width: 100%;
   object-fit: cover;
+  display: block;
 `;
 
 const PriceTag = styled(Box)`
@@ -79,7 +81,7 @@ const PropertyCard = ({ property }) => {
 
   return (
     <StyledCard>
-      <Box sx={{ position: 'relative' }}>
+      <Box sx={{ position: 'relative', height: 200, overflow: 'hidden' }}>
         <PropertyImage
           component="img"
           image={image || '/placeholder-property.jpg'}
